@@ -160,3 +160,11 @@ cython_debug/
 .idea
 
 venv
+/dependency/scr/build/
+/dependency/scr/deps/
+/dependency/scr/install/
+/dependency/scr/python/.scr/
+/dependency/scr/python/build/lib/
+/dependency/scr/python/scr.egg-info/
+/dependency/scr/python/ckpt_2_0.txt
+/dependency/scr/python/ckpt_2_1.txt
