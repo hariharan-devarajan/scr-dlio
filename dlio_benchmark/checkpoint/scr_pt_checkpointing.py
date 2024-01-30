@@ -23,6 +23,7 @@ from dlio_profiler.logger import fn_interceptor as Profile
 from dlio_benchmark.common.constants import MODULE_CHECKPOINT
 from dlio_benchmark.common.enumerations import CheckpointLocationType
 from dlio_benchmark.utils.utility import DLIOMPI
+import scr
 
 dlp = Profile(MODULE_CHECKPOINT)
 
@@ -40,6 +41,8 @@ class SCRPyTorchCheckpointing(BaseCheckpointing):
     @dlp.log_init
     def __init__(self):
         super().__init__("pt")
+        scr.config("SCR_DEBUG=1")
+        scr.init()
 
     @dlp.log
     def get_tensor(self, size):
@@ -48,9 +51,21 @@ class SCRPyTorchCheckpointing(BaseCheckpointing):
     @dlp.log
     def save_state(self, suffix, state):
         name = self.get_name(suffix)
-        with open(name, "wb") as f:
-            torch.save(state, f)
+        scr.start_output(name, scr.FLAG_CHECKPOINT)
+        scr_name = scr.route_file(name)
+        valid = True
+        try:
+            with open(scr_name, "wb") as f:
+                torch.save(state, f)
+        except:
+            # failed to write file
+            valid = False
+        rc = scr.complete_output(valid)
 
     @dlp.log
     def checkpoint(self, epoch, step_number):
         super().checkpoint(epoch, step_number)
+
+    @dlp.log
+    def finalize(self):
+        scr.finalize()
