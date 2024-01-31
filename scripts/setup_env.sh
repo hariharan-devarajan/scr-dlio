@@ -2,15 +2,16 @@
 
 # Configurations
 export DLIO_WORKLOAD=scr_megatron_deepspeed
-export NUM_NODES=1
-export PPN=1
+export NUM_NODES=2
+export PPN=8
 export GENERATE_DATA="0"
+export JOB_TIME=60
 
 
 export GITHUB_WORKSPACE=/usr/workspace/haridev/scr-dlio
 export INSTALL_DIR=/usr/workspace/haridev/scr-dlio/venv
-export DLIO_DATA_DIR=/p/lustre2/haridev/dlio/scr/dataset/scr_megatron_deepspeed_small
-export DLIO_CHECKPOINT_DIR=/p/lustre2/haridev/dlio/scr/checkpoints/scr_megatron_deepspeed_small
+export DLIO_DATA_DIR=/p/lustre2/haridev/dlio/scr/dataset/scr_megatron_deepspeed_medium
+export DLIO_CHECKPOINT_DIR=/p/lustre2/haridev/dlio/scr/checkpoints/scr_megatron_deepspeed_medium
 export SCR_CACHE_DIR=/dev/shm/haridev/scr/checkpoints/scr_megatron_deepspeed #/l/ssd/haridev/scr/checkpoints
 
 # DLIO Profiler Configurations

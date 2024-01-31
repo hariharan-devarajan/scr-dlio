@@ -11,6 +11,8 @@ echo Generating DLIO Dataset
 flux submit -N $((NUM_NODES)) --tasks-per-node=$((PPN)) dlio_benchmark ${CONFIG_ARG} workload=${DLIO_WORKLOAD} ++workload.dataset.data_folder=${DLIO_DATA_DIR} ++workload.workflow.generate_data=True ++workload.workflow.train=False
 GEN_PID=$(flux job last)
 flux job attach ${GEN_PID}
+echo "Run with Data Generate 0 for Training"
+exit
 fi
 
 # Run Training

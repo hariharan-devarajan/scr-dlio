@@ -50,22 +50,26 @@ class SCRPyTorchCheckpointing(BaseCheckpointing):
     @dlp.log
     def save_state(self, suffix, state):
         name = self.get_name(suffix)
-        scr.start_output(name, scr.FLAG_CHECKPOINT)
         scr_name = scr.route_file(name)
-        logging.info(f"SCR checkpointing on file {scr_name} for {name}")
+        logging.debug(f"SCR checkpointing on file {scr_name} for {name}")
+        with open(scr_name, "wb") as f:
+            torch.save(state, f)
+
+
+
+    @dlp.log
+    def checkpoint(self, epoch, step_number):
+        scr.start_output(f"scr-chk-{epoch}-{step_number}", scr.FLAG_CHECKPOINT)
         valid = True
         try:
-            with open(scr_name, "wb") as f:
-                torch.save(state, f)
+            if DLIOMPI.get_instance().rank() == 0:
+                logging.debug(f"SCR checkpointing for epoch:{epoch} and step:{step_number}")
+            super().checkpoint(epoch, step_number)
         except:
             # failed to write file
             valid = False
         rc = scr.complete_output(valid)
 
-    @dlp.log
-    def checkpoint(self, epoch, step_number):
-        logging.info(f"SCR checkpointing for epoch:{epoch} and step:{step_number}")
-        super().checkpoint(epoch, step_number)
 
     @dlp.log
     def finalize(self):
