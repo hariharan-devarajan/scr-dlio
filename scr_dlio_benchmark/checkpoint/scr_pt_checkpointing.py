@@ -16,7 +16,7 @@
 """
 import os
 import torch
-
+import logging
 from dlio_benchmark.checkpointing.base_checkpointing import BaseCheckpointing
 from dlio_profiler.logger import fn_interceptor as Profile
 
@@ -41,7 +41,6 @@ class SCRPyTorchCheckpointing(BaseCheckpointing):
     @dlp.log_init
     def __init__(self):
         super().__init__("pt")
-        scr.config("SCR_DEBUG=1")
         scr.init()
 
     @dlp.log
@@ -53,6 +52,7 @@ class SCRPyTorchCheckpointing(BaseCheckpointing):
         name = self.get_name(suffix)
         scr.start_output(name, scr.FLAG_CHECKPOINT)
         scr_name = scr.route_file(name)
+        logging.info(f"SCR checkpointing on file {scr_name} for {name}")
         valid = True
         try:
             with open(scr_name, "wb") as f:
@@ -64,6 +64,7 @@ class SCRPyTorchCheckpointing(BaseCheckpointing):
 
     @dlp.log
     def checkpoint(self, epoch, step_number):
+        logging.info(f"SCR checkpointing for epoch:{epoch} and step:{step_number}")
         super().checkpoint(epoch, step_number)
 
     @dlp.log
