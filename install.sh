@@ -5,6 +5,9 @@
 export PROJECT_DIR=$PWD
 export SCR_DLIO_INSTALL_DIR=$PROJECT_DIR/venv
 
+
+source ${PROJECT_DIR}/scripts/modules.sh
+
 echo Cleaning existing environment.
 rm -r ${SCR_DLIO_INSTALL_DIR}/*
 
