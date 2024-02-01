@@ -169,13 +169,7 @@ venv
 /dependency/scr/python/ckpt_2_0.txt
 /dependency/scr/python/ckpt_2_1.txt
 /scripts/hydra_log/scr_megatron_deepspeed/
-/dependency/scr/build/
-/dependency/scr/deps/
-/dependency/scr/install/
-/dependency/scr/python/.scr/
-/dependency/scr/python/build/lib/
-/dependency/scr/python/scr.egg-info/
-/dependency/scr/python/ckpt_2_0.txt
-/dependency/scr/python/ckpt_2_1.txt
-/dependency/scr/python/corona264-python-2698182.core
-/dependency/scr/python/corona264-python-2698183.core
+*.core
+/logs/
+/scripts/hydra_log
+/dependency/
