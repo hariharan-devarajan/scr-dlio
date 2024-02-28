@@ -1,3 +1,2 @@
-dlio_benchmark @ git+https://github.com/argonne-lcf/dlio_benchmark.git@feature/custom_checkpointing
 cffi
-dlio_profiler_py @ git+https://github.com/hariharan-devarajan/dlio-profiler.git@dev
+dlio_profiler_py[dlp_analyzer] @ git+https://github.com/hariharan-devarajan/dlio-profiler.git@dev
