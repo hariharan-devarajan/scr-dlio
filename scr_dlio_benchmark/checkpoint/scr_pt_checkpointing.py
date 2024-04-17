@@ -59,7 +59,8 @@ class SCRPyTorchCheckpointing(BaseCheckpointing):
 
     @dlp.log
     def checkpoint(self, epoch, step_number):
-        scr.start_output(f"scr-chk-{epoch}-{step_number}", scr.FLAG_CHECKPOINT)
+        with Profile(name=f"checkpoint_start_{epoch}_{step_number}", cat=MODULE_CHECKPOINT, epoch=epoch, step=step_number):
+            scr.start_output(f"scr-chk-{epoch}-{step_number}", scr.FLAG_CHECKPOINT)
         valid = True
         try:
             if DLIOMPI.get_instance().rank() == 0:
@@ -68,8 +69,9 @@ class SCRPyTorchCheckpointing(BaseCheckpointing):
         except:
             # failed to write file
             valid = False
-        rc = scr.complete_output(valid)
-
+        with Profile(name=f"checkpoint_end_{epoch}_{step_number}", cat=MODULE_CHECKPOINT, epoch=epoch, step=step_number) as prof:
+            rc = scr.complete_output(valid)
+            prof.update(args={"valid": str(valid)})
 
     @dlp.log
     def finalize(self):

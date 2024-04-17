@@ -173,3 +173,5 @@ venv
 /logs/
 /scripts/hydra_log
 /dependency/
+/build/
+/dependency/src/build/*

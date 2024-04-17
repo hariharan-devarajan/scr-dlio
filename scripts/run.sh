@@ -4,6 +4,8 @@ source setup_env.sh
 
 flux run -N $((NUM_NODES)) --tasks-per-node=1 mkdir -p $SCR_CACHE_DIR
 flux run -N $((NUM_NODES)) --tasks-per-node=1 rm -rf $SCR_CACHE_DIR/*
+flux run -N $((NUM_NODES)) --tasks-per-node=1 mkdir -p $DLIO_CHECKPOINT_DIR
+flux run -N $((NUM_NODES)) --tasks-per-node=1 rm -rf $DLIO_CHECKPOINT_DIR/*
 
 if [[ "${GENERATE_DATA}" == "1" ]]; then
 # Generate Data for Workload

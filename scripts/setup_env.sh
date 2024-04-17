@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configurations
-export DLIO_WORKLOAD=base_megatron_deepspeed_medium # base_megatron_deepspeed_medium scr_megatron_deepspeed_medium
+export DLIO_WORKLOAD=scr_megatron_deepspeed_medium # base_megatron_deepspeed_medium scr_megatron_deepspeed_medium
 export NUM_NODES=2
 export PPN=8
 export GENERATE_DATA="0"
@@ -11,7 +11,7 @@ export JOB_TIME=60
 export GITHUB_WORKSPACE=/usr/workspace/haridev/scr-dlio
 export INSTALL_DIR=/usr/workspace/haridev/scr-dlio/venv
 export DLIO_DATA_DIR=/p/lustre2/haridev/dlio/scr/dataset/scr_megatron_deepspeed_medium
-export DLIO_CHECKPOINT_DIR=/p/lustre2/haridev/dlio/scr/checkpoints/scr_megatron_deepspeed_medium
+export DLIO_CHECKPOINT_DIR=/p/lustre2/haridev/dlio/scr/checkpoints/scr_megatron_deepspeed_medium # /p/lustre2/haridev/dlio/scr/checkpoints/scr_megatron_deepspeed_medium /l/ssd/haridev/scr/checkpoints/scr_base_megatron_deepspeed 
 export SCR_CACHE_DIR=/l/ssd/haridev/scr/checkpoints/scr_megatron_deepspeed # /dev/shm
 
 # DLIO Profiler Configurations
@@ -32,13 +32,14 @@ export SCR_CACHE_BYPASS=0
 export SCR_CACHE_PURGE=1
 export SCR_PREFIX=${DLIO_CHECKPOINT_DIR}
 export SCR_DEBUG=1
+export SCR_COPY_TYPE=SINGLE
 
 export CONFIG_ARG="--config-dir=${GITHUB_WORKSPACE}/scr_dlio_benchmark/configs"
 
 mkdir -p $DLIO_DATASET_DIR $DLIO_CHECKPOINT_DIR
 source ${GITHUB_WORKSPACE}/scripts/modules.sh
 source ${INSTALL_DIR}/bin/activate
-export DYAD_DLIO_RUN_LOG=scr_${DLIO_WORKLOAD}_${NUM_NODES}_${PPN}.log
+export DYAD_DLIO_RUN_LOG=scr_${DLIO_WORKLOAD}_${NUM_NODES}_${PPN}_scr_a_pfs_one.log
 rm -rf ${DYAD_DLIO_RUN_LOG}
 # Derived PATHS
 export PATH=${PATH}:${INSTALL_DIR}/bin:${INSTALL_DIR}/sbin
