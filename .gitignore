@@ -172,6 +172,5 @@ venv
 *.core
 /logs/
 /scripts/hydra_log
-/dependency/
 /build/
 /dependency/src/build/*

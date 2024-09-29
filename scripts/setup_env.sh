@@ -33,13 +33,14 @@ export SCR_CACHE_PURGE=1
 export SCR_PREFIX=${DLIO_CHECKPOINT_DIR}
 export SCR_DEBUG=1
 export SCR_COPY_TYPE=SINGLE
+export SCR_FILE_BUF_SIZE=1875123200 # 1.74 GB
 
 export CONFIG_ARG="--config-dir=${GITHUB_WORKSPACE}/scr_dlio_benchmark/configs"
 
 mkdir -p $DLIO_DATASET_DIR $DLIO_CHECKPOINT_DIR
 source ${GITHUB_WORKSPACE}/scripts/modules.sh
 source ${INSTALL_DIR}/bin/activate
-export DYAD_DLIO_RUN_LOG=scr_${DLIO_WORKLOAD}_${NUM_NODES}_${PPN}_scr_a_pfs_one.log
+export DYAD_DLIO_RUN_LOG=scr_${DLIO_WORKLOAD}_${NUM_NODES}_${PPN}_scr_a_pfs_one_max_buf_cb_off.log
 rm -rf ${DYAD_DLIO_RUN_LOG}
 # Derived PATHS
 export PATH=${PATH}:${INSTALL_DIR}/bin:${INSTALL_DIR}/sbin
